@@ -16,8 +16,9 @@ pipeline {
             steps {
                 echo 'Testing models..'
             }
+
             script {
-                sh 'gdown gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
+                sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
             }
         }
         stage('Build') {
