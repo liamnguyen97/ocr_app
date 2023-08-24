@@ -1,0 +1,19 @@
+# Compose file file format
+# Pay attention to https://bom.so/kVr7Qn
+version: '3.8'
+
+services: 
+  fastapi_ocr:
+    # The name will be displayed
+    # in docker ps
+    container_name: fastapi_ocr
+    # Build the image from Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Expose port 30000
+    ports:
+      - '30000:30000'
+    # And set the image name
+    image: fullstackdatascience/fastapi_ocr:0.0.1
+
