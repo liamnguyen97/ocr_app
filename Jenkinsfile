@@ -21,10 +21,10 @@ pipeline {
          
             steps {
                 echo 'Testing models..'
-                // script {
-                //     sh 'pip install gdown && pip install unzip'
-                //     sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
-                // }
+                script {
+                    sh 'ls -la'
+                    // sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
+                }
             }
         }
         stage('Build') {
