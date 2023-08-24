@@ -21,8 +21,8 @@ pipeline {
          
             steps {
                 echo 'Testing models..222'
-                def dockerHome = tool 'jenkins_docker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
+                // def dockerHome = tool 'jenkins_docker'
+                // env.PATH = "${dockerHome}/bin:${env.PATH}"
                 // script {
                 //     sh 'ls -la'
                 //     // sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
