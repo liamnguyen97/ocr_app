@@ -10,7 +10,7 @@ COPY ./main.py /app
 
 COPY ./requirements.txt /app
 
-COPY ./model_storage /app/model_storage
+COPY ./model_storage /app/
 
 EXPOSE 30000
 
