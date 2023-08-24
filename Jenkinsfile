@@ -28,11 +28,11 @@ pipeline {
             }
         }
         stage('Build') {
-            agent {
-                docker {
-                    image 'python:3.8' 
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'python:3.8' 
+            //     }
+            // }
             steps {
                 // sh 'docker build -t ocr_app .'
                 script {
