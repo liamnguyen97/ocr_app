@@ -16,7 +16,8 @@ pipeline {
             steps {
                 echo 'Testing models..'
                 script {
-                sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
+                    sh 'sudo apt update && sudo apt install python3-pip && pip install gdown && pip install unzip'
+                    sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
                 }
             }
         }
