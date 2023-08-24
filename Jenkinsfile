@@ -28,17 +28,17 @@ pipeline {
             }
         }
         stage('Build') {
-            // agent {
-            //     docker {
-            //         image 'python:3.8' 
-            //     }
-            // }
+            agent {
+                docker {
+                    image 'python:3.8' 
+                }
+            }
             steps {
                 // sh 'docker build -t ocr_app .'
                 script {
                     echo 'Building image for deployment..'
-                    // sh 'pip install gdown && pip install unzip'
-                    // sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
+                    sh 'pip install gdown && pip install unzip'
+                    sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
                     
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                     echo 'Pushing image to dockerhub..'
