@@ -13,12 +13,13 @@ pipeline {
 
     stages {
         stage('Test') {
-            // agent {
-            //     docker {
-            //         image 'python:3.8' 
-            //     }
-            // }
-         
+            agent {
+                docker {
+                    image 'python:3.8' 
+                }
+            }
+            def dockerHome = tool 'jenkins_docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
             steps {
                 echo 'Testing models..'
                 // script {
