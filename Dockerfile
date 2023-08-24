@@ -4,6 +4,7 @@ FROM python:3.8
 # the /app folder is the current working directory
 WORKDIR /app
 
+USER root
 # Copy necessary files to our app
 COPY ./main.py /app
 
