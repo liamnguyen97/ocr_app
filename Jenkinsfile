@@ -27,25 +27,27 @@ pipeline {
                 //     sh 'ls -la'
                 //     // sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip model_storage.zip'
                 // }
+                sh 'pip install gdown && pip install unzip'
+                sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip -o model_storage.zip'
             }
         }
         stage('Build') {
-            agent {
-                docker {
-                    image 'python:3.8' 
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'python:3.8' 
+            //     }
+            // }
             steps {
                 // sh 'docker build -t ocr_app .'
                 script {
                     echo 'Building image for deployment..'
-                    sh 'pip install gdown && pip install unzip'
-                    sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip -o model_storage.zip'
-                    sh 'curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-                    && tar xzvf docker-17.04.0-ce.tgz \
-                    && mv docker/docker /usr/local/bin \
-                    && rm -r docker docker-17.04.0-ce.tgz'
-                    // sh 'usermod -aG docker jenkins '
+                    // sh 'pip install gdown && pip install unzip'
+                    // sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip -o model_storage.zip'
+                    // sh 'curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
+                    // && tar xzvf docker-17.04.0-ce.tgz \
+                    // && mv docker/docker /usr/local/bin \
+                    // && rm -r docker docker-17.04.0-ce.tgz'
+
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
