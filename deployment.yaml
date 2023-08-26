@@ -1,0 +1,20 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-demo
+  template:
+    metadata:
+      labels:
+        app: app-demo
+    spec:
+      containers:
+        - name:  app-demo
+          image: 666243375423.dkr.ecr.us-east-1.amazonaws.com/app-demo:latest
+          ports:
+            - containerPort: 3000
