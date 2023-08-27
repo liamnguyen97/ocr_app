@@ -52,7 +52,9 @@ pipeline {
             steps {
                 echo 'Deploying models..'
                 echo 'Running a script to trigger pull and start a docker container'
-                sh 'kubectl apply -f deployment.yml'
+                echo 'Check helm and kubectl command'
+                sh 'helm version'
+                sh 'kubectl version'
             }
         }
     }
