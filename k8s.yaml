@@ -18,7 +18,7 @@ spec:
           image: 666243375423.dkr.ecr.us-east-1.amazonaws.com/app-demo:latest
           ports:
             - containerPort: 3000
-----
+---
 # service.yaml
 apiVersion: v1
 kind: Service
