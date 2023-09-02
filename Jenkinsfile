@@ -10,7 +10,7 @@ pipeline {
             }
             steps {
                 echo 'Testing model correctness..'
-                sh 'pip3 install -r requirements.txt --user'
+                sh 'pip3 install -r requirements.txt --ignore-installed --user'
             }
         }
         stage('Build') {
