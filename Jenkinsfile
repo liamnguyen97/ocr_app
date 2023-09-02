@@ -2,9 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Test') {
+            agent {
+                docker {
+                    image 'python:3.8' 
+                }
+            }
             steps {
-                echo 'Hello sunshine v2'
+                echo 'Testing model correctness..'
+                sh 'pip install -r requirements.txt && pytest'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    echo 'Building image for deployment..'
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    echo 'Pushing image to dockerhub..'
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
         stage('Deploy') {
