@@ -10,8 +10,7 @@ pipeline {
             }
             steps {
                 echo 'Testing model correctness..'
-                sh 'pip install --upgrade pip'
-                sh 'pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt --user'
             }
         }
         stage('Build') {
