@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Testing model correctness..'
                 
-                
+                sh "sudo chown root:jenkins /run/docker.sock"
                 sh 'pip install  --user -r requirements.txt'
             }
         }
