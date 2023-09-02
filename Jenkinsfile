@@ -2,6 +2,16 @@ pipeline {
     agent any
 
     stages {
+        stage("Fix the permission issue") {
+
+            agent any
+
+            steps {
+                sh "sudo chown root:jenkins /run/docker.sock"
+            }
+
+        }
+
         stage('Test') {
             agent {
                 docker {
@@ -11,8 +21,8 @@ pipeline {
             steps {
                 echo 'Testing model correctness..'
                 
-                sh "virtualenv .venv && source .venv/bin/activate"
-                sh 'pip install -r requirements.txt'
+                // sh "virtualenv .venv && source .venv/bin/activate"
+                sh 'pip3 install --user -r requirements.txt'
             }
         }
         stage('Build') {
