@@ -10,7 +10,7 @@ pipeline {
             }
             steps {
                 echo 'Testing model correctness..'
-                sh 'python3.8 -m pip install --upgrade pip'
+                sh 'sudo su'
                 sh 'python3.8 -m pip install -r requirements.txt'
             }
         }
