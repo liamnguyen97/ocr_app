@@ -11,8 +11,8 @@ pipeline {
             steps {
                 echo 'Testing model correctness..'
                 
-                sh "sudo chown root:jenkins /run/docker.sock"
-                sh 'pip install  --user -r requirements.txt'
+                sh "virtualenv .venv && source .venv/bin/activate"
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Build') {
