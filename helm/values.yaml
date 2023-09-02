@@ -2,13 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 5
+replicaCount: 2
 
 image:
-  repository: 666243375423.dkr.ecr.us-east-1.amazonaws.com/app-demo
+  # repository: 666243375423.dkr.ecr.us-east-1.amazonaws.com/app-demo:latest
+  repository: dongnguyen18891/ocr_app:latest
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -38,7 +39,7 @@ securityContext: {}
 
 service:
   type: LoadBalancer
-  port: 80
+  port: 3000
 
 ingress:
   enabled: false

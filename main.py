@@ -37,6 +37,7 @@ async def ocr(file: UploadFile = File(...)):
         result["texts"].append(text)
         result["probs"].append(prob)
 
+    logger.info("HELLO FROM LOGURU")
     return result
 
 
