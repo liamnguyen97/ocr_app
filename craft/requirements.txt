@@ -1,0 +1,12 @@
+# conda==4.10.3
+opencv-python==4.5.3.56
+Pillow==9.3.0
+Polygon3==3.0.9.1
+PyYAML==5.4.1
+scikit-image==0.17.2
+Shapely==1.8.0
+torch==1.13.1
+torchvision==0.14.1
+wandb==0.15.5
+tqdm
+numpy==1.23.1
