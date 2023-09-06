@@ -12,21 +12,21 @@ pipeline {
 
         // }
 
-        stage('Test') {
-            agent {
-                docker {
-                    image 'python:3.8' 
-                }
-            }
-            steps {
+        // stage('Test') {
+        //     agent {
+        //         docker {
+        //             image 'python:3.8' 
+        //         }
+        //     }
+        //     steps {
                 
-                echo 'Testing model correctness..'
+        //         echo 'Testing model correctness..'
                 
-                // sh 'python3 -m venv env && . ./env/bin/activate'
-                // sh 'pip3 install --upgrade pip'
-                sh 'pip install -r requirements.txt '
-            }
-        }
+        //         // sh 'python3 -m venv env && . ./env/bin/activate'
+        //         // sh 'pip3 install --upgrade pip'
+        //         sh 'pip install -r requirements.txt '
+        //     }
+        // }
         stage('Build') {
             steps {
                 script {
