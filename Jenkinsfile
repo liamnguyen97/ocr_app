@@ -12,23 +12,24 @@ pipeline {
 
         // }
 
-        stage('Install packages for Jenkins') {
-            agent {
-                docker {
-                    image 'python:3.8' 
-                }
-            }
-            steps {
+        // stage('Install packages for Jenkins') {
+        //     agent {
+        //         docker {
+        //             image 'python:3.8' 
+        //         }
+        //     }
+        //     steps {
                 
-                echo 'Testing model correctness..'
+        //         echo 'Testing model correctness..'
                 
-                // sh 'python3 -m venv env && . ./env/bin/activate'
-                // sh 'pip3 install --upgrade pip'
-                sh 'pip install wget && pip install unzip --user'
-            }
-        }
+        //         // sh 'python3 -m venv env && . ./env/bin/activate'
+        //         // sh 'pip3 install --upgrade pip'
+        //         sh 'pip install wget && pip install unzip --user'
+        //     }
+        // }
         stage('Build') {
             steps {
+                sh 'pip install wget && pip install unzip'
                 sh 'wget https://drive.google.com/file/d/16k5MBIqa1w7eUdbIyVNllavM6I7pba0U/view?usp=drive_link'
                 sh 'unzip model_storage.zip model_storage'
                 script {
