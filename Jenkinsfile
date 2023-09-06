@@ -28,6 +28,11 @@ pipeline {
         //     }
         // }
         stage('Build') {
+            agent {
+                docker {
+                    image 'python:3.8' 
+                }
+            }         
             steps {
                 sh 'pip install wget && pip install unzip'
                 sh 'wget https://drive.google.com/file/d/16k5MBIqa1w7eUdbIyVNllavM6I7pba0U/view?usp=drive_link'
