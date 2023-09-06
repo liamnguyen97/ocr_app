@@ -34,9 +34,8 @@ pipeline {
                 }
             }         
             steps {
-                sh 'pip install wget && pip install unzip'
-                sh 'wget https://drive.google.com/file/d/16k5MBIqa1w7eUdbIyVNllavM6I7pba0U/view?usp=drive_link'
-                sh 'unzip -o model_storage.zip'
+                sh 'pip install gdown && pip install unzip'
+                sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip -o model_storage.zip'
                 script {
                     echo 'Building image for deployment..'
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
