@@ -20,8 +20,8 @@ pipeline {
                 echo 'Testing model correctness..'
                 
                 // sh "virtualenv .venv && source .venv/bin/activate"
-                sh 'python3 -m venv env && . ./env/bin/activate'
-                sh 'pip install -r requirements.txt --user'
+                sh 'python3 -m venv env && ./env/bin/activate'
+                sh 'python -m pip install -r requirements.txt '
             }
         }
         stage('Build') {
