@@ -19,9 +19,9 @@ pipeline {
                 
                 echo 'Testing model correctness..'
                 
-                sh 'python3 -m venv env && . ./env/bin/activate'
-                sh 'pip3 install --upgrade pip3'
-                sh 'pip3 install -r requirements.txt --user'
+                // sh 'python3 -m venv env && . ./env/bin/activate'
+                // sh 'pip3 install --upgrade pip3'
+                sh 'pip install -r requirements.txt '
             }
         }
         stage('Build') {
