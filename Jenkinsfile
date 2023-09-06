@@ -19,8 +19,8 @@ pipeline {
                 
                 echo 'Testing model correctness..'
                 
-                // sh 'python3 -m venv env && . ./env/bin/activate'
-                // sh 'pip3 install --upgrade pip3'
+                sh 'python3 -m venv env && . ./env/bin/activate'
+                sh 'pip3 install --upgrade pip'
                 sh 'pip install -r requirements.txt '
             }
         }
@@ -37,13 +37,13 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                    echo 'Running deployment'
-                    sh "helm upgrade --install k8sdemo ./helm/" 
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+        //             echo 'Running deployment'
+        //             sh "helm upgrade --install k8sdemo ./helm/" 
+        //         }
+        //     }
+        // }
     }
 }
