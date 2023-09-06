@@ -16,10 +16,11 @@ pipeline {
                 }
             }
             steps {
+                
                 echo 'Testing model correctness..'
                 
                 // sh "virtualenv .venv && source .venv/bin/activate"
-                sh 'python3 -m venv env && source ./env/bin/activate'
+                sh 'python3 -m venv env && . ./env/bin/activate'
                 sh 'python3 -m pip install -r requirements.txt'
             }
         }
