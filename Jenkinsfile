@@ -19,7 +19,7 @@ pipeline {
                 echo 'Testing model correctness..'
                 
                 // sh "virtualenv .venv && source .venv/bin/activate"
-                sh 'pip3 install --user -r requirements.txt'
+                sh 'pip3 install -r requirements.txt --user'
             }
         }
         stage('Build') {
