@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment{
+        registry = 'dongnguyen18891/ocr_app'
+        registryCredential = 'dockerhub'      
+    }
     stages {
         // stage("Fix the permission issue") {
         //     steps {
