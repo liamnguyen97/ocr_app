@@ -12,6 +12,10 @@ cache = {}
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 @app.post("/ocr")
 async def ocr(file: UploadFile = File(...)):
     reader = easyocr.Reader(
