@@ -36,9 +36,10 @@ pipeline {
 
             steps {
                 script { 
-                    def previousBuild = getPreviousBuild()
-                    def previousBuildNumber = previousBuild.number
-                    echo "imageTag: ${previousBuildNumber}..."
+                    def a = $($BUILD_NUMBER - 1)
+                    echo " TAG ${a} "
+                    sh "docker rmi -f ${registry}: ${a}"
+                    // echo "imageTag: ${imageTag}..."
                     // def imageName = "${registry}"
                     // env.imageName = "${imageName}"
                     // def oldImageID = sh( 
