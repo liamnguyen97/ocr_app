@@ -83,9 +83,6 @@ pipeline {
                
                 script {
                     def imageTag = currentBuild.previousBuild.number
-                    echo " previous TAG ${imageTag} "
-                    // sh "docker rmi -f ${registry}:${imageTag}"
-                    // sh "docker rmi -f ${registry}:latest"
                     def oldImageID = sh( 
                         script: "docker images -qf reference=${registry}:${imageTag}",
                         returnStdout: true
@@ -97,14 +94,13 @@ pipeline {
                         echo "No image to delete..."
                     } 
 
-                    // echo 'Building image for deployment..'
-                    // dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                    // echo 'Pushing image to dockerhub..'
-                    // docker.withRegistry( '', registryCredential ) {
-                    //     // dockerImage.push()
-                    //     dockerImage.push('latest')
-                    // }
-                    // sh "docker rmi -f ${dockerImage}"
+                    echo 'Building image for deployment..'
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    echo 'Pushing image to dockerhub..'
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
                 }
             }
         }
