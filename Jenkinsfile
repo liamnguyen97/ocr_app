@@ -27,43 +27,7 @@ pipeline {
         //         sh 'pip install wget && pip install unzip --user'
         //     }
         // }
-        // stage('Clean old Image') {
-        //     // agent {
-        //     //     docker {
-        //     //         image 'python:3.8' 
-        //     //     }
-        //     // }    
-
-        //     steps {
-                
-        //         script { 
-        //             def imageTag = currentBuild.previousBuild.number
-        //             echo " previous TAG ${imageTag} "
-        //             sh "docker rmi -f ${registry}: ${imageTag}"
-
-        //             // def a = $($BUILD_NUMBER - 1)
-        //             // echo " TAG ${a} "
-        //             // echo "imageTag: ${imageTag}..."
-        //             // def imageName = "${registry}"
-        //             // env.imageName = "${imageName}"
-        //             // def oldImageID = sh( 
-        //             //                         script: 'docker images -qf reference=\${imageName}:\${imageTag}',
-        //             //                         returnStdout: true
-        //             //                     )
-
-        //             // echo "Image Name: " + "${imageName}"
-        //             // echo "Old Image: ${oldImageID}"
-
-        //             // if ( "${oldImageID}" != '' ) {
-        //             //     echo "Deleting image id: ${oldImageID}..."
-        //             //     sh "docker rmi -f ${oldImageID}"
-        //             // } else {
-        //             //     echo "No image to delete..."
-        //             //     } 
-        //         }  
-        //     }
-        // }
-
+        
         stage('Build') {
             // steps {
             //     echo 'Building image for deployment..'
@@ -104,13 +68,13 @@ pipeline {
                 }
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-        //             echo 'Running deployment'
-        //             sh "helm upgrade --install k8sdemo ./helm/" 
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                    echo 'Running deployment'
+                    sh "helm upgrade --install k8sdemo ./helm/" 
+                }
+            }
+        }
     }
 }
