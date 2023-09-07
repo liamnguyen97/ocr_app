@@ -50,6 +50,7 @@ pipeline {
                     }  
                 }
             }
+        }
 
         stage('Build') {
             // steps {
