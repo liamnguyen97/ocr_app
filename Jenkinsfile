@@ -88,13 +88,13 @@ pipeline {
                     sh "docker rmi -f ${registry}:${imageTag}"
                     // sh "docker rmi -f ${registry}: latest"
 
-                    echo 'Building image for deployment..'
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                    echo 'Pushing image to dockerhub..'
-                    docker.withRegistry( '', registryCredential ) {
-                        // dockerImage.push()
-                        dockerImage.push('latest')
-                    }
+                    // echo 'Building image for deployment..'
+                    // dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    // echo 'Pushing image to dockerhub..'
+                    // docker.withRegistry( '', registryCredential ) {
+                    //     // dockerImage.push()
+                    //     dockerImage.push('latest')
+                    // }
                     // sh "docker rmi -f ${dockerImage}"
                 }
             }
