@@ -82,8 +82,8 @@ pipeline {
                     docker.withRegistry( '', registryCredential ) {
                         // dockerImage.push()
                         dockerImage.push('latest')
-                        dockerImage.delete('latest')
                     }
+                    sh "docker rmi -f ${dockerImage}"
                 }
             }
         }
