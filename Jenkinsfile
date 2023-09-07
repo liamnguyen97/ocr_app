@@ -36,9 +36,9 @@ pipeline {
 
             steps {
                 script { 
-                    def a = ${$BUILD_NUMBER - 1}
-                    echo " TAG ${a} "
-                    // echo "imageTag: ${imageTag}..."
+                    def previousBuild = getPreviousBuild()
+                    def previousBuildNumber = previousBuild.number
+                    echo "imageTag: ${previousBuildNumber}..."
                     // def imageName = "${registry}"
                     // env.imageName = "${imageName}"
                     // def oldImageID = sh( 
