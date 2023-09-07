@@ -67,8 +67,6 @@ pipeline {
                     && tar xzvf docker-17.04.0-ce.tgz \
                     && mv docker/docker /usr/local/bin \
                     && rm -r docker docker-17.04.0-ce.tgz'
-                sh 'docker rmi dongnguyen18891/ocr_app: latest'
-                sh 'docker rmi dongnguyen18891/ocr_app: latest'
                 script {
                     echo 'Building image for deployment..'
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
