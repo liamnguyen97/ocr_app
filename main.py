@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, File, UploadFile
 from loguru import logger
 import easyocr
@@ -10,6 +11,16 @@ import imagehash
 # by a dictionary with key is image hash
 cache = {}
 
+# Initialize the model to None
+# Load the ML model
+reader = easyocr.Reader(
+    ['vi', 'en'],
+    gpu=True,
+    detect_network="craft",
+    model_storage_directory="./model_storage/model",
+    download_enabled=False
+)
+
 app = FastAPI()
 
 @app.get("/")
@@ -18,47 +29,11 @@ async def root():
 
 @app.post("/ocr")
 async def ocr(file: UploadFile = File(...)):
-    reader = easyocr.Reader(
-        ['vi', 'en'],
-        gpu=False,
-        detect_network="craft",
-        model_storage_directory="./model_storage/model",
-        download_enabled=False
-    )
-    # Read image from route
-    request_object_content = await file.read()
-    pil_image = Image.open(BytesIO(request_object_content))
-
-    # Get the detection from EasyOCR
-    detection = reader.readtext(pil_image)
-
-    # Create the final result
-    result = {"bboxes": [], "texts": [], "probs": []}
-    for (bbox, text, prob) in detection:
-        # Convert a list of NumPy int elements to premitive numbers
-        bbox = np.array(bbox).tolist()
-        result["bboxes"].append(bbox)
-        result["texts"].append(text)
-        result["probs"].append(prob)
-
-    logger.info("HELLO FROM LOGURU")
-    return result
-
-
-@app.post("/cached_ocr")
-async def ocr(file: UploadFile = File(...)):
-    reader = easyocr.Reader(
-        ['vi', 'en'],
-        gpu=False,
-        detect_network="craft",
-        model_storage_directory="./model_storage/model",
-        download_enabled=False
-    )
     # Read image from route
     request_object_content = await file.read()
     pil_image = Image.open(BytesIO(request_object_content))
     pil_hash = imagehash.average_hash(pil_image)
-
+    logger.info("HELLO FROM LOGURU")
     if pil_hash in cache:
         logger.info("Getting result from cache!")
         return cache[pil_hash]
