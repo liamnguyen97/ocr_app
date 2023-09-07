@@ -36,7 +36,7 @@ pipeline {
 
             steps {
                 script { 
-                    def imageTag = "$BUILD_NUMBER - 1"
+                    def imageTag = ${$BUILD_NUMBER - 1}
                     echo "imageTag: ${imageTag}..."
                     def imageName = "${registry}"
                     env.imageName = "${imageName}"
