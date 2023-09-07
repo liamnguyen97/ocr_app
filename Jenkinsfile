@@ -82,11 +82,20 @@ pipeline {
                     && rm -r docker docker-17.04.0-ce.tgz'
                
                 script {
-                    // def imageTag = currentBuild.previousBuild.number
-                    def imageTag = 37
+                    def imageTag = currentBuild.previousBuild.number
                     echo " previous TAG ${imageTag} "
                     sh "docker rmi -f ${registry}:${imageTag}"
                     sh "docker rmi -f ${registry}:latest"
+                    def oldImageID = sh( 
+                        script: "docker images -qf reference=${registry}:${imageTag}",
+                        returnStdout: true
+                    )
+                    if ( "${oldImageID}" != '' ) {
+                        echo "Deleting image id: ${oldImageID}..."
+                        sh "docker rmi -f ${oldImageID}"
+                    } else {
+                        echo "No image to delete..."
+                    } 
 
                     // echo 'Building image for deployment..'
                     // dockerImage = docker.build registry + ":$BUILD_NUMBER" 
