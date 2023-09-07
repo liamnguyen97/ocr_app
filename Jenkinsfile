@@ -84,8 +84,8 @@ pipeline {
                 script {
                     def imageTag = currentBuild.previousBuild.number
                     echo " previous TAG ${imageTag} "
-                    sh "docker rmi -f ${registry}:${imageTag}"
-                    sh "docker rmi -f ${registry}:latest"
+                    // sh "docker rmi -f ${registry}:${imageTag}"
+                    // sh "docker rmi -f ${registry}:latest"
                     def oldImageID = sh( 
                         script: "docker images -qf reference=${registry}:${imageTag}",
                         returnStdout: true
