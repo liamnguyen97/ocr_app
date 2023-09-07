@@ -28,11 +28,11 @@ pipeline {
         //     }
         // }
         stage('Clean old Image') {
-            agent {
-                docker {
-                    image 'python:3.8' 
-                }
-            }    
+            // agent {
+            //     docker {
+            //         image 'python:3.8' 
+            //     }
+            // }    
 
             steps {
                 script { 
