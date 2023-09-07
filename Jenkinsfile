@@ -82,10 +82,11 @@ pipeline {
                     && rm -r docker docker-17.04.0-ce.tgz'
                
                 script {
-                    def imageTag = currentBuild.previousBuild.number
+                    // def imageTag = currentBuild.previousBuild.number
+                    def imageTag = 52
                     echo " previous TAG ${imageTag} "
-                    sh "docker rmi -f ${registry}: ${imageTag}"
-                    sh "docker rmi -f ${registry}: latest"
+                    sh "docker rmi -f ${registry}:${imageTag}"
+                    // sh "docker rmi -f ${registry}: latest"
 
                     echo 'Building image for deployment..'
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
