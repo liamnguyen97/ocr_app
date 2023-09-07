@@ -37,8 +37,8 @@ pipeline {
             steps {
                 def a = currentBuild.previousBuild.number
                 echo " TAG ${a} "
-                def a = $($BUILD_NUMBER - 1)
-                echo " TAG ${a} "
+                def a2 = $($BUILD_NUMBER - 1)
+                echo " TAG ${a2} "
                 script { 
                     // def a = $($BUILD_NUMBER - 1)
                     // echo " TAG ${a} "
