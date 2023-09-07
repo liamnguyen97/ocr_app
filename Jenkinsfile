@@ -27,36 +27,36 @@ pipeline {
         //         sh 'pip install wget && pip install unzip --user'
         //     }
         // }
-        stage('Clean old Image') {
-            agent {
-                docker {
-                    image 'python:3.8' 
-                }
-            }    
+        // stage('Clean old Image') {
+        //     agent {
+        //         docker {
+        //             image 'python:3.8' 
+        //         }
+        //     }    
 
-            steps {
-                script { 
-                    def imageTag = ${$BUILD_NUMBER - 1}
-                    echo "imageTag: ${imageTag}..."
-                    def imageName = "${registry}"
-                    env.imageName = "${imageName}"
-                    def oldImageID = sh( 
-                                            script: 'docker images -qf reference=\${imageName}:\${imageTag}',
-                                            returnStdout: true
-                                        )
+        //     steps {
+        //         script { 
+        //             def imageTag = ${$BUILD_NUMBER - 1}
+        //             echo "imageTag: ${imageTag}..."
+        //             def imageName = "${registry}"
+        //             env.imageName = "${imageName}"
+        //             def oldImageID = sh( 
+        //                                     script: 'docker images -qf reference=\${imageName}:\${imageTag}',
+        //                                     returnStdout: true
+        //                                 )
 
-                    echo "Image Name: " + "${imageName}"
-                    echo "Old Image: ${oldImageID}"
+        //             echo "Image Name: " + "${imageName}"
+        //             echo "Old Image: ${oldImageID}"
 
-                    if ( "${oldImageID}" != '' ) {
-                        echo "Deleting image id: ${oldImageID}..."
-                        sh "docker rmi -f ${oldImageID}"
-                    } else {
-                        echo "No image to delete..."
-                        } 
-                }  
-            }
-        }
+        //             if ( "${oldImageID}" != '' ) {
+        //                 echo "Deleting image id: ${oldImageID}..."
+        //                 sh "docker rmi -f ${oldImageID}"
+        //             } else {
+        //                 echo "No image to delete..."
+        //                 } 
+        //         }  
+        //     }
+        // }
 
         stage('Build') {
             // steps {
@@ -80,8 +80,9 @@ pipeline {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
+                        // dockerImage.push()
                         dockerImage.push('latest')
+                        dockerImage.delete('latest')
                     }
                 }
             }
