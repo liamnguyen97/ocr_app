@@ -31,6 +31,7 @@ pipeline {
             steps {
                 script { 
                     def imageTag = $BUILD_NUMBER - 1
+                    echo "imageTag: ${imageTag}..."
                     def imageName = "${registry}"
                     env.imageName = "${imageName}"
                     def oldImageID = sh( 
@@ -47,8 +48,7 @@ pipeline {
                     } else {
                         echo "No image to delete..."
                         } 
-                    }  
-                }
+                }  
             }
         }
 
