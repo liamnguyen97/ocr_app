@@ -84,7 +84,8 @@ pipeline {
                 script {
                     def imageTag = currentBuild.previousBuild.number
                     echo " previous TAG ${imageTag} "
-                    // sh "docker rmi -f ${registry}: ${imageTag}"
+                    sh "docker rmi -f ${registry}: ${imageTag}"
+                    sh "docker rmi -f ${registry}: latest"
 
                     echo 'Building image for deployment..'
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
