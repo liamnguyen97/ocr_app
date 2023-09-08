@@ -72,7 +72,7 @@ pipeline {
             steps {
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                     echo 'Running deployment'
-                    sh "helm upgrade --install k8sdemo ./helm/  --set 'image.tag=${$BUILD_NUMBER}'" 
+                    sh "helm upgrade --install k8sdemo ./helm/  --set 'image.tag=$BUILD_NUMBER'" 
                 }
             }
         }
