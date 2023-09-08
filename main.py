@@ -38,7 +38,7 @@ def readtext(pil_image):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World v2"}
+    return {"message": "Hello World v3"}
 
 @app.post("/ocr")
 async def ocr(file: UploadFile = File(...)):
