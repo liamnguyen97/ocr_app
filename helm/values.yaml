@@ -7,7 +7,7 @@ replicaCount: 2
 image:
   # repository: 666243375423.dkr.ecr.us-east-1.amazonaws.com/app-demo:latest
   repository: dongnguyen18891/ocr_app
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 

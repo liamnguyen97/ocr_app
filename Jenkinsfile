@@ -67,9 +67,6 @@ pipeline {
                     }
                 }
             }
-            // steps {
-            //     echo "BUILD XONG ROI"
-            // }
         }
         stage('Deploy') {
             steps {
