@@ -6,7 +6,7 @@ from io import BytesIO
 from PIL import Image
 import numpy as np
 import imagehash
-
+from time import perf_counter
 # Save all files and result to cached
 # by a dictionary with key is image hash
 cache = {}
@@ -23,6 +23,19 @@ reader = easyocr.Reader(
 
 app = FastAPI()
 
+def measure_execution_time(fn):
+    def inner(*args, **kwargs):
+        start_time = perf_counter()
+        result = fn(*args, **kwargs)       
+        end_time = perf_counter()
+        execution_time = end_time - start_time
+        logger.info('{0} took {1:.8f}s to execute'.format(fn.__name__, execution_time))
+        return result  
+    return inner
+@measure_execution_time
+def readtext(pil_image):
+    return reader.readtext(pil_image)
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -33,14 +46,14 @@ async def ocr(file: UploadFile = File(...)):
     request_object_content = await file.read()
     pil_image = Image.open(BytesIO(request_object_content))
     pil_hash = imagehash.average_hash(pil_image)
-    logger.info("HELLO FROM LOGURU")
+    logger.info("HELLO FROM OCR APP")
     if pil_hash in cache:
         logger.info("Getting result from cache!")
         return cache[pil_hash]
     else:
         logger.info("Predicting. Please wait...")
         # Get the detection from EasyOCR
-        detection = reader.readtext(pil_image)
+        detection = readtext(pil_image)
 
         # Create the final result
         result = {"bboxes": [], "texts": [], "probs": []}
