@@ -37,45 +37,45 @@ pipeline {
                     image 'python:3.8' 
                 }
             }         
-            // steps {
-            //     sh 'pip install gdown && pip install unzip'
-            //     sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip -o model_storage.zip'
-            //     sh 'curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-            //         && tar xzvf docker-17.04.0-ce.tgz \
-            //         && mv docker/docker /usr/local/bin \
-            //         && rm -r docker docker-17.04.0-ce.tgz'
-               
-            //     script {
-            //         def imageTag = currentBuild.previousBuild.number
-            //         def oldImageID = sh( 
-            //             script: "docker images -qf reference=${registry}:${imageTag}",
-            //             returnStdout: true
-            //         )
-            //         if ( "${oldImageID}" != '' ) {
-            //             echo "Deleting image id: ${oldImageID}..."
-            //             sh "docker rmi -f ${oldImageID}"
-            //         } else {
-            //             echo "No image to delete..."
-            //         } 
-
-            //         echo 'Building image for deployment..'
-            //         dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-            //         echo 'Pushing image to dockerhub..'
-            //         docker.withRegistry( '', registryCredential ) {
-            //             dockerImage.push()
-            //             dockerImage.push('latest')
-            //         }
-            //     }
-            // }
             steps {
-                echo "BUILD XONG ROI"
+                sh 'pip install gdown && pip install unzip'
+                sh 'gdown 16k5MBIqa1w7eUdbIyVNllavM6I7pba0U && unzip -o model_storage.zip'
+                sh 'curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
+                    && tar xzvf docker-17.04.0-ce.tgz \
+                    && mv docker/docker /usr/local/bin \
+                    && rm -r docker docker-17.04.0-ce.tgz'
+               
+                script {
+                    def imageTag = currentBuild.previousBuild.number
+                    def oldImageID = sh( 
+                        script: "docker images -qf reference=${registry}:${imageTag}",
+                        returnStdout: true
+                    )
+                    if ( "${oldImageID}" != '' ) {
+                        echo "Deleting image id: ${oldImageID}..."
+                        sh "docker rmi -f ${oldImageID}"
+                    } else {
+                        echo "No image to delete..."
+                    } 
+
+                    echo 'Building image for deployment..'
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    echo 'Pushing image to dockerhub..'
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
             }
+            // steps {
+            //     echo "BUILD XONG ROI"
+            // }
         }
         stage('Deploy') {
             steps {
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                     echo 'Running deployment'
-                    sh "helm upgrade --install --recreate-pods k8sdemo ./helm/" 
+                    sh "helm upgrade --install k8sdemo ./helm/" 
                 }
             }
         }
