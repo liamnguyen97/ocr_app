@@ -15,6 +15,7 @@ spec:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
+        releaseTime: {{ dateInZone "2006-01-02 15:04:05Z" (now) "UTC"| quote }}
         rollme: {{ randAlphaNum 5 | quote }}
       {{- end }}
       labels:
