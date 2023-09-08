@@ -38,7 +38,7 @@ def readtext(pil_image):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World v3"}
+    return {"message": "Hello World v4"}
 
 @app.post("/ocr")
 async def ocr(file: UploadFile = File(...)):
@@ -46,7 +46,7 @@ async def ocr(file: UploadFile = File(...)):
     request_object_content = await file.read()
     pil_image = Image.open(BytesIO(request_object_content))
     pil_hash = imagehash.average_hash(pil_image)
-    logger.info("HELLO FROM OCR APP")
+    logger.info("HELLO FROM OCR APP v4")
     if pil_hash in cache:
         logger.info("Getting result from cache!")
         return cache[pil_hash]
